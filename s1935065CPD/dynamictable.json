@@ -1,0 +1,83 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation Sample Template DynamoDB_Table: This template demonstrates the creation of a DynamoDB table.  **WARNING** This template creates an Amazon DynamoDB table. You will be billed for the AWS resources used if you create a stack from this template.",
+  "Parameters": {
+    "HashKeyElementName": {
+      "Description": "HashType PrimaryKey Name",
+      "Type": "String",
+      "AllowedPattern": "[a-zA-Z0-9]*",
+      "MinLength": "1",
+      "MaxLength": "2048",
+      "ConstraintDescription": "must contain only alphanumeric characters"
+    },
+    "HashKeyElementType": {
+      "Description": "HashType PrimaryKey Type",
+      "Type": "String",
+      "Default": "S",
+      "AllowedPattern": "[S|N]",
+      "MinLength": "1",
+      "MaxLength": "1",
+      "ConstraintDescription": "must be either S or N"
+    },
+    "ReadCapacityUnits": {
+      "Description": "Provisioned read throughput",
+      "Type": "Number",
+      "Default": "5",
+      "MinValue": "5",
+      "MaxValue": "10000",
+      "ConstraintDescription": "must be between 5 and 10000"
+    },
+    "WriteCapacityUnits": {
+      "Description": "Provisioned write throughput",
+      "Type": "Number",
+      "Default": "10",
+      "MinValue": "5",
+      "MaxValue": "10000",
+      "ConstraintDescription": "must be between 5 and 10000"
+    },
+    "StreamViewType": {
+      "Description": "The type of data from the stream to be published. Valid options are NEW_IMAGE, OLD_IMAGE, NEW_AND_OLD_IMAGES, and KEYS_ONLY.",
+      "Type": "String",
+      "Default": "NEW_AND_OLD_IMAGES",
+      "AllowedValues": [
+        "NEW_IMAGE",
+        "OLD_IMAGE",
+        "NEW_AND_OLD_IMAGES",
+        "KEYS_ONLY"
+      ]
+    }
+  },
+  "Resources": {
+    "MyTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "imagename",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "imagename",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": { "Ref": "ReadCapacityUnits" },
+          "WriteCapacityUnits": { "Ref": "WriteCapacityUnits" }
+        },
+        "StreamSpecification": {
+          "StreamViewType": { "Ref": "StreamViewType" }
+        },
+        "TableName": "myajaodynamodbs1935065table"
+      }
+    }
+  },
+  "Outputs": {
+    "TableName": {
+      "Value": { "Ref": "MyTable" },
+      "Description": "Table name of the newly created DynamoDB table"
+    }
+  }
+}
