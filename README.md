@@ -3,6 +3,8 @@ AWS Label Detection and Notification System
 Overview
 This project implements an AWS-based Label Detection and Notification System designed to detect labels in images uploaded to an S3 bucket and trigger email alerts for specific labels using AWS services like EC2, S3, SQS, Lambda, DynamoDB, and SNS. The system is built to seamlessly handle image uploads, label identification, and notification processes.
 
+![Screenshot (13)](https://github.com/Stanley00011/LabelRecognitionApp/assets/73467145/0c43dc64-75af-48bd-93e6-ef1b185f6540)
+
 Components
 1. EC2 Instance
 An EC2 instance is utilized to host the Python application responsible for uploading images to the S3 bucket.
